@@ -4,6 +4,16 @@ import pandas as pd
 from googletrans import Translator
 import re
 import string
+import os
+import openai
+
+OPENAI_API_TYPE="azure"
+OPENAI_API_KEY="e6e399c281c84e9da226cb96d34c2f3a"
+OPENAI_API_BASE="https://madhaviopenai1.openai.azure.com/openai/deployments/madhavi/chat/completions?api-version=2024-02-15-preview"
+OPENAI_API_VERSION="2024-02-15-preview"
+os.environ["AZURE_OPENAI_API_KEY"]=OPENAI_API_KEY
+os.environ["AZURE_OPENAI_ENDPOINT"]=OPENAI_API_BASE
+os.environ["OPENAI_API_VERSION"]=OPENAI_API_VERSION
 
 # Function to convert each row in the dataframe
 def convert(row):
@@ -32,14 +42,21 @@ models = {
     "rakesh_client": rakesh_client,      # Add your token and model for rakesh_client if needed
     "madhavi_client": madhavi_client      # Add your token and model for madhavi_client if needed
 }
+ 
+
 def process_client(client, df):
     x = ""
     for i in range(df.shape[0]):
         z = st.checkbox(df['english sentence'][i])
         if z:
-            for message in client.chat_completion(messages=[{"role": "user", "content": df['english sentence'][i]}], max_tokens=500, stream=True):
-                print(message.choices[0].delta.content, end="")
-                x += message.choices[0].delta.content
+             response = openai.chat.completions.create(
+                    model="gpt-4o",
+                    messages=[{"role": "user", "content": df['english sentence'][i]}],
+                )
+            x += response.choices[0].message.content
+            #for message in client.chat_completion(messages=[{"role": "user", "content": df['english sentence'][i]}], max_tokens=500, stream=True):
+                #print(message.choices[0].delta.content, end="")
+                #x += message.choices[0].delta.content
     return x
 
 def main():
