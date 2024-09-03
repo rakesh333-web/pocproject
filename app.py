@@ -26,7 +26,7 @@ def translate_to_english(text, src_lang='auto'):
 # Initialize Hugging Face clients
 vishesh_client = InferenceClient("imvishesh007/gemma-Code-Instruct-Finetune-test",token="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")
 madhavi_client = InferenceClient("imvishesh007/gemma-Code-Instruct-Finetune-test",token="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")
-rakesh_client = InferenceClient("bandi333/gemma-Code-Instruct-Finetune-test-v0.0",token="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")
+rakesh_client = InferenceClient("bandi333/gemma-Code-Instruct-Finetune-test-v0.0",token="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")
 models = {
     "vishesh_client": vishesh_client,
     "rakesh_client": rakesh_client,      # Add your token and model for rakesh_client if needed
