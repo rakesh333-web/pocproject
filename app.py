@@ -49,15 +49,15 @@ def process_client(client, df):
     for i in range(df.shape[0]):
         z = st.checkbox(df['english sentence'][i])
         if z:
-             response = openai.chat.completions.create(
-                    model="gpt-4o",
-                    messages=[{"role": "user", "content": df['english sentence'][i]}],
-                )
-            x = response.choices[0].message.content
+            response = openai.ChatCompletion.create(
+                model="gpt-4",  # Ensure the model name is correct
+                messages=[{"role": "user", "content": df['english sentence'][i]}],
+            )
+            x += response.choices[0].message['content']
             #for message in client.chat_completion(messages=[{"role": "user", "content": df['english sentence'][i]}], max_tokens=500, stream=True):
                 #print(message.choices[0].delta.content, end="")
                 #x += message.choices[0].delta.content
-    return x
+        return x
 
 def main():
     st.set_page_config(layout="wide", page_title="MODELS")
