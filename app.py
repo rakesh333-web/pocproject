@@ -53,7 +53,7 @@ def process_client(client, df):
                     model="gpt-4o",
                     messages=[{"role": "user", "content": df['english sentence'][i]}],
                 )
-            x += response.choices[0].message.content
+            x = response.choices[0].message.content
             #for message in client.chat_completion(messages=[{"role": "user", "content": df['english sentence'][i]}], max_tokens=500, stream=True):
                 #print(message.choices[0].delta.content, end="")
                 #x += message.choices[0].delta.content
