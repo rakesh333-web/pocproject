@@ -58,3 +58,5 @@ watchdog==4.0.1
 transformers==4.38.0
 datasets
 openai 
+llama-index-llms-azure-openai
+llama-index
