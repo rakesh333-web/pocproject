@@ -6,7 +6,8 @@ import re
 import string
 import os
 import openai
-
+from llama_index.llms.azure_openai import AzureOpenAI
+"""
 OPENAI_API_TYPE="azure"
 OPENAI_API_KEY="e6e399c281c84e9da226cb96d34c2f3a"
 OPENAI_API_BASE="https://madhaviopenai1.openai.azure.com/openai/deployments/madhavi/chat/completions?api-version=2024-02-15-preview"
@@ -14,6 +15,15 @@ OPENAI_API_VERSION="2024-02-15-preview"
 os.environ["AZURE_OPENAI_API_KEY"]=OPENAI_API_KEY
 os.environ["AZURE_OPENAI_ENDPOINT"]=OPENAI_API_BASE
 os.environ["OPENAI_API_VERSION"]=OPENAI_API_VERSION
+"""
+llm = AzureOpenAI(
+    engine="madhavi",
+    model="gpt-4o",
+    temperature=0.0,
+    azure_endpoint= "https://madhaviopenai1.openai.azure.com",
+    api_key="e6e399c281c84e9da226cb96d34c2f3a",
+    api_version="2024-02-15-preview",
+)
 
 # Function to convert each row in the dataframe
 def convert(row):
@@ -46,9 +56,13 @@ models = {
 
 def process_client(client, df):
     x = ""
+    
     for i in range(df.shape[0]):
         z = st.checkbox(df['english sentence'][i])
         if z:
+            response = llm.complete("df['english sentence'][i]")
+            x += response
+            """
             response = openai.ChatCompletion.create(
                 model="gpt-4",  # Ensure the model name is correct
                 messages=[{"role": "user", "content": df['english sentence'][i]}],
@@ -57,6 +71,7 @@ def process_client(client, df):
             #for message in client.chat_completion(messages=[{"role": "user", "content": df['english sentence'][i]}], max_tokens=500, stream=True):
                 #print(message.choices[0].delta.content, end="")
                 #x += message.choices[0].delta.content
+                """
         return x
 
 def main():
