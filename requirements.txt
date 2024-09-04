@@ -55,6 +55,7 @@ typing_extensions==4.12.2
 tzdata==2024.1
 urllib3==2.2.2
 watchdog==4.0.1
-openai 
-llama-index-llms-azure-openai
+openai==0.27.0
+llama-index==0.1.0
+requests
 
